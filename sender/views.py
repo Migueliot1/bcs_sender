@@ -3,7 +3,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from .models import Transaction
-from .forms import TransactionForm
 
 # Create your views here.
 
