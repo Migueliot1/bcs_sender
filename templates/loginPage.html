@@ -1,0 +1,37 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static  'styles/fonts/icomoon/style.css' %}">
+
+        <link rel="stylesheet" href="{% static 'styles/owl.carousel.min.css' %}">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+
+        <!-- Style -->
+        <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+
+        <title>BCS Transactions</title>
+    </head>
+
+    <body>
+
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="login-block">
+                <h1>Login</h1>
+                <input type="text" name="username" placeholder="Username" />
+                <input type="password" name="password" placeholder="Password" />
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </body>
+
+</html>

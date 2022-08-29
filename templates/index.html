@@ -66,8 +66,15 @@
           </table>
         </div>
         
-        
-        <a href="#">Login into staff account</a>
+        {% if not request.user.is_authenticated %}
+        <form action="{% url 'login' %}">
+          <button class="fancy-btn">Login into staff account</button>
+        </form>
+        {% else %}
+        <form action="{% url 'logout' %}">
+          <button class="fancy-btn">Logout</button>
+        </form>
+        {% endif %}
       </div>
 
     </div>
