@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <form action="{% url 'index' %}">
+        <div class="btn-container">       
+            <button class="fancy-btn" role="button">Go to main page</button>
+        </div>
+    </form>
+
+    <div class="content">
+
+        
+        
+        <div class="container">
+            <h2 class="mb-5">Transaction</h2>
+            
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Sender</th>
+                        <th scope="col">Recipient</th>
+                        <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        
+                        <tr scope="row">     
+                        <td>{{tx.date}}</td>
+                        <td>
+                            <p>{{tx.id}}</p>
+                        </td>
+                        <td>{{tx.amount}} BCS</td>
+                        <td>{{tx.sender}}</td>
+                        <td>{{tx.recipient}}</td>
+                        <td>{{tx.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <form class="form" action="#" method="POST">
+            {% csrf_token %}
+
+            <!-- Input:Body -->
+            <div class="edit_input_box">
+                <textarea type="text" name="description" placeholder="Enter transaction's description here..." class="edit_input"></textarea>
+            </div>
+
+            <div class="btn-container">       
+                <button class="fancy-btn" role="button">Edit description</button>
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}
+  

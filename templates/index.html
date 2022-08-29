@@ -1,84 +1,67 @@
+{% extends 'main.html' %}
 {% load static %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static  'styles/fonts/icomoon/style.css' %}">
-
-    <link rel="stylesheet" href="{% static 'styles/owl.carousel.min.css' %}">
+{% block content %}
+  <div class="btn-container">       
+    <button class="fancy-btn" role="button">Send 1 BCS</button>
+  </div>
     
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
-    
-    <!-- Style -->
-    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
-    
-    <title>BCS Transactions</title>
-  </head>
-  <body>
-    <div class="btn-container">       
-      <button class="fancy-btn" role="button">Send 1 BCS</button>
-    </div>
-    
-    <div class="content">
+  <div class="content">
       
       
-      <div class="container">
-        <h2 class="mb-5">List of recent transactions</h2>
+    <div class="container">
+      <h2 class="mb-5">List of recent transactions</h2>
+      
+      
+      <div class="table-responsive">
         
-        
-        <div class="table-responsive">
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">ID</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Sender</th>
+              <th scope="col">Recipient</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
           
-          <table class="table table-striped custom-table">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Number</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Sender</th>
-                <th scope="col">Recipient</th>
-                <th scope="col">Description</th>
-              </tr>
-            </thead>
+          <tbody>
             
-            <tbody>
-              
-              {% for i in '012345'|make_list %}
-              <tr scope="row">     
-                <td>29/08/2022</td>
+            {% for tx in txs %}
+          
+              <tr scope="row" class='clickable-row' data-href="{% url 'singleTx' tx.id %}">
+                <td>{{tx.date}}</td>
                 <td>
-                  <p>123456</p>
+                  <p>{{tx.id}}</p>
                 </td>
-                <td>1 BCS</td>
-                <td>BEusyCzC9PaFqL4RGyxPAwJYiLhmEcCVSB</td>
-                <td>Ldlfsoe0PLdke2o3glaysdkIl203mjJcsE</td>
-                <td><a href="#" class="more">Details</a></td>
+                <td>{{tx.amount}} BCS</td>
+                <td>{{tx.sender}}</td>
+                <td>{{tx.recipient}}</td>
+
+                <td>{{tx.description}}</p></td>
               </tr>
-              
-              {% endfor %}
-              
-            </tbody>
-          </table>
-        </div>
-        
-        {% if not request.user.is_authenticated %}
-        <form action="{% url 'login' %}">
-          <button class="fancy-btn">Login into staff account</button>
-        </form>
-        {% else %}
-        <form action="{% url 'logout' %}">
-          <button class="fancy-btn">Logout</button>
-        </form>
-        {% endif %}
+            
+            {% endfor %}
+            
+          </tbody>
+        </table>
       </div>
+      
+      {% if not request.user.is_authenticated %}
+      <form action="{% url 'login' %}">
+        <button class="fancy-btn">Login into staff account</button>
+      </form>
+      {% else %}
+      <form action="{% url 'logout' %}">
+        <button class="fancy-btn">Logout</button>
+      </form>
+      {% endif %}
 
     </div>
+
+  </div>
     
-  </body>
-  </html>
+{% endblock %}
   

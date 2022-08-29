@@ -1,21 +1,28 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
+from .models import Transaction
+from .forms import TransactionForm
 
 # Create your views here.
 
 def showIndex(request):
-    return render(request, 'index.html')
+    '''Render main page'''
+
+    txs = Transaction.objects.all().order_by('-created')
+    
+    context = {'txs': txs}
+    return render(request, 'index.html', context)
 
 def loginPage(request):
+    '''Login functionality'''
 
     # If user is already logged in then redirect to the main page
     if request.user.is_authenticated:
         return redirect('index')
     
     if request.method == 'POST':
-
-        print(request.POST)
         try:
             username = request.POST['username']
             password = request.POST['password']
@@ -43,3 +50,16 @@ def logoutPage(request):
 
     logout(request)
     return redirect('index')
+
+@staff_member_required(login_url='login')
+def showTx(request, pk):
+
+    tx = Transaction.objects.get(id=pk)
+
+    if request.method == 'POST' and request.POST.get('description'):
+        tx.description = request.POST.get('description')
+        tx.save()
+
+    context = {'tx': tx}
+
+    return render(request, 'singleTx.html', context)
