@@ -24,8 +24,10 @@
                         <th scope="col">Date</th>
                         <th scope="col">ID</th>
                         <th scope="col">Amount</th>
+                        <!--
                         <th scope="col">Sender</th>
-                        <th scope="col">Recipient</th>
+                        <th scope="col">Recipient</th> 
+                        -->
                         <th scope="col">Description</th>
                         </tr>
                     </thead>
@@ -33,14 +35,17 @@
                     <tbody>
                         
                         <tr scope="row">     
-                        <td>{{tx.date}}</td>
+                        <td>{{tx.created|date:"d M y"}}</td>
                         <td>
                             <p>{{tx.id}}</p>
                         </td>
                         <td>{{tx.amount}} BCS</td>
+                        <!--
                         <td>{{tx.sender}}</td>
                         <td>{{tx.recipient}}</td>
+                        -->
                         <td>{{tx.description}}</td>
+                        <td class="clickable-column" data-href="https://bcschain.info/tx/{{tx.id}}">Link to chain</td>
                         </tr>
                     </tbody>
                 </table>

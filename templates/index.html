@@ -4,6 +4,7 @@
 {% block content %}
 
   <form class="form" action="#" method="POST">
+    {% csrf_token %}
 
     <div class="btn-container">       
       <button class="fancy-btn" role="button">Send 1 BCS</button>
@@ -23,6 +24,7 @@
         <table class="table table-striped custom-table">
           <thead>
             <tr>
+              <th scope="col">Date</th>
               <th scope="col">ID</th>
               <th scope="col">Amount</th>
               <th scope="col">Description</th>
@@ -33,11 +35,14 @@
             
             {% for tx in txs %}
           
-              <tr scope="row" class='clickable-row' data-href="{% url 'singleTx' tx.id %}">
-                <td>{{tx.id}}</td>
-                <td>{{tx.amount}} BCS</td>
-                <td>{{tx.description}}</p></td>
+              <tr scope="row">
+                <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}">{{tx.created|date:"d M y"}}</td>
+                <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}"><p>{{tx.id}}</p></td>
+                <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}">{{tx.amount}} BCS</td>
+                <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}">{{tx.description}}</td>
+                <td class="clickable-column" data-href="https://bcschain.info/tx/{{tx.id}}">Link to chain</td>
               </tr>
+              
             
             {% endfor %}
             
