@@ -2,9 +2,14 @@
 {% load static %}
 
 {% block content %}
-  <div class="btn-container">       
-    <button class="fancy-btn" role="button">Send 1 BCS</button>
-  </div>
+
+  <form class="form" action="#" method="POST">
+
+    <div class="btn-container">       
+      <button class="fancy-btn" role="button">Send 1 BCS</button>
+    </div>
+  
+  </form>
     
   <div class="content">
       
@@ -18,11 +23,8 @@
         <table class="table table-striped custom-table">
           <thead>
             <tr>
-              <th scope="col">Date</th>
               <th scope="col">ID</th>
               <th scope="col">Amount</th>
-              <th scope="col">Sender</th>
-              <th scope="col">Recipient</th>
               <th scope="col">Description</th>
             </tr>
           </thead>
@@ -32,14 +34,8 @@
             {% for tx in txs %}
           
               <tr scope="row" class='clickable-row' data-href="{% url 'singleTx' tx.id %}">
-                <td>{{tx.date}}</td>
-                <td>
-                  <p>{{tx.id}}</p>
-                </td>
+                <td>{{tx.id}}</td>
                 <td>{{tx.amount}} BCS</td>
-                <td>{{tx.sender}}</td>
-                <td>{{tx.recipient}}</td>
-
                 <td>{{tx.description}}</p></td>
               </tr>
             
