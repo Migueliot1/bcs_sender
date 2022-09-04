@@ -36,7 +36,7 @@
             {% for tx in txs %}
           
               <tr scope="row">
-                <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}">{{tx.created|date:"d M y"}}</td>
+                <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}">{{tx.created|date:"H:i, d M y"}}</td>
                 <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}"><p>{{tx.id}}</p></td>
                 <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}">{{tx.amount}} BCS</td>
                 <td class="clickable-column" data-href="{% url 'singleTx' tx.id %}">{{tx.description}}</td>
