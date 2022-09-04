@@ -37,11 +37,6 @@ def buildSpendable(utxo):
         tx_hash=h2b_rev(tx_id),
         tx_out_index=outputIndex
     )
-    print('***\n', spendable.coin_value, 
-        spendable.script, 
-        spendable.tx_hash,
-        spendable.tx_out_index)
-    print('***')
 
     return spendable
 
@@ -119,9 +114,10 @@ def makeTx():
     '''
     Perform all the necessary steps to send a transaction. 
     
-    Return JSON response with tx's number, error code and id. 
+    Returns a tuple of recipient's address and JSON response 
+    with tx's number, error code and id.
 
-    Example: {'result': 'tx_number_here', 'error': None, 'id': 'your_id_here'}
+    Example: (recipient_address, {'result': 'tx_number_here', 'error': None, 'id': 'your_id_here'})
     '''
 
     # Step 1 -- Get an address to send coins to
@@ -160,4 +156,4 @@ def makeTx():
     tx_hex = tx.as_hex()
     tx_response = sendTx(tx_hex)
 
-    return tx_response
+    return (recipientAddress, tx_response)
