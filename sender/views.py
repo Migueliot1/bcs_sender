@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
-from .models import Transaction
 
+from .models import Transaction
+from .utils import makeTx
+from hidden import getMyAddress
 # Create your views here.
 
 def showIndex(request):
@@ -11,6 +13,22 @@ def showIndex(request):
 
     txs = Transaction.objects.all().order_by('-created')
     
+    if request.method == 'POST':
+
+        # Create and send a transaction then get response
+        # and make a Transaction class instance out of it
+        response = makeTx()
+        recipientAddress = response[0]
+        tx_id = response[1]['result']
+
+        Transaction.objects.create(
+            id=tx_id, 
+            amount=1, 
+            sender=getMyAddress(), 
+            recipient=recipientAddress)
+
+        return redirect('index')
+
     context = {'txs': txs}
     return render(request, 'index.html', context)
 
