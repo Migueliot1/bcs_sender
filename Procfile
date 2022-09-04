@@ -1,0 +1,1 @@
+web: python manage.py collectstatic --no-input; gunicorn bcs_sender.wsgi --log-file -
